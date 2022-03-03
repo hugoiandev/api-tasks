@@ -1,10 +1,9 @@
-import express from 'express';
-import routes from './routes';
+import express, { Express } from 'express';
 
-import { Express } from 'express';
 import mongoose from 'mongoose';
 
 import dotenv from 'dotenv';
+import routes from './routes';
 
 dotenv.config();
 class App {
