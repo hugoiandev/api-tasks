@@ -2,4 +2,4 @@ import App from './app';
 
 const { server } = new App();
 
-server.listen(9090);
+server.listen(3333);
