@@ -1,6 +1,11 @@
 export interface UserInterface {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface SessionInterface {
   email: string;
   password: string;
 }

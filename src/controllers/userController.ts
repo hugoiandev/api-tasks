@@ -1,28 +1,55 @@
 import { Request, Response } from 'express';
 import * as Yup from 'yup';
 import User from '../models/User';
-import { UserInterface } from '../types/modelTypes';
+// eslint-disable-next-line no-unused-vars
+import { SessionInterface, UserInterface } from '../types/modelTypes';
 
 const schema = Yup.object({
-  first_name: Yup.string().required(),
-  last_name: Yup.string().required(),
   email: Yup.string().required(),
   password: Yup.string().required(),
 });
 
-const userController = async (req: Request, res: Response) => {
-  const user: UserInterface = req.body;
-  console.log(user);
+class UserController {
+  async store(req: Request, res: Response) {
+    const user: UserInterface = req.body;
 
-  const validate = await schema.isValid(user);
+    const validate = await schema.isValid(user);
 
-  if (!validate) {
-    return res.status(400).json({ message: 'Preencha os dados corretamente!' });
+    if (!validate) {
+      return res.status(400).json({ message: 'Preencha os dados corretamente!' });
+    }
+
+    const findUser = await User.findOne({ email: user.email });
+
+    if (findUser) {
+      return res.status(400).json({ message: 'Email já cadastrado!' });
+    }
+
+    const { email, firstName } = await User.create(user);
+    return res.status(201).json({ email, firstName });
   }
 
-  const teste = new User(user);
-  await teste.save();
-  return res.status(200).json({ message: 'Cadastrado com sucesso!' });
-};
+  async index(req: Request, res: Response) {
+    res.status(200);
+  }
+}
 
-export default userController;
+export default new UserController();
+
+// const sessionController = async (req: Request, res: Response) => {
+//   const user: SessionInterface = req.body;
+
+//   const validate = await schema.isValid(user);
+
+//   if (!validate) {
+//     return res.status(400).json({ message: 'Preencha os dados corretamente!' });
+//   }
+
+//   const { email } = await User.findOne({ email: user.email }).exec();
+
+//   if (!email) {
+//     return res.status(404).json({ message: 'Conta não encontrada!' });
+//   }
+
+//   return res.status(200).json({ message: 'Logado com sucesso!' });
+// };
