@@ -2,7 +2,7 @@ export interface UserInterface {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
+  passwordHash: string;
 }
 
 export interface SessionInterface {

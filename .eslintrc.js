@@ -34,5 +34,6 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'class-methods-use-this': 'off',
+    'max-len': 0,
   },
 };

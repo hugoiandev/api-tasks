@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 import * as Yup from 'yup';
 import User from '../models/User';
-// eslint-disable-next-line no-unused-vars
-import { SessionInterface, UserInterface } from '../types/modelTypes';
+import { UserInterface } from '../types/modelTypes';
 
 const schema = Yup.object({
+  firstName: Yup.string().required(),
+  lastName: Yup.string().required(),
   email: Yup.string().required(),
   password: Yup.string().required(),
 });
@@ -27,10 +28,6 @@ class UserController {
 
     const { email, firstName } = await User.create(user);
     return res.status(201).json({ email, firstName });
-  }
-
-  async index(req: Request, res: Response) {
-    res.status(200);
   }
 }
 

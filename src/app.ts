@@ -12,7 +12,7 @@ class App {
   constructor() {
     this.server = express();
 
-    mongoose.connect('mongodb+srv://hugofront:vRtZsePErgjlj7gd@cluster0.kfscp.mongodb.net/Delivery?retryWrites=true&w=majority');
+    mongoose.connect(process.env.URL_CONNECT as string);
 
     this.middlewares();
     this.routes();
