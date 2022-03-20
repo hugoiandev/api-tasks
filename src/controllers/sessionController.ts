@@ -32,7 +32,7 @@ class SessionController {
       return res.status(400).json({ message: 'Senha incorreta!' });
     }
 
-    const token = jwt.sign({ name: user.firstName, email: user.email }, process.env.KEY_JWT as string, { expiresIn: '2 days' });
+    const token = jwt.sign({ name: user.firstName, email: user.email }, process.env.SECRET_KEY_JWT as string, { expiresIn: '2 days' });
 
     return res.status(200).json({ token });
   }
