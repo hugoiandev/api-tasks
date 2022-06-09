@@ -13,7 +13,7 @@ routes.use(autenticate.store);
 
 // eslint-disable-next-line no-unused-vars
 routes.get('/teste', (req: Request, res: Response) => {
-  res.status(200).json({ message: 'Você passou do middleware!' });
+  res.status(200).json([{ name: 'Hugo', age: 23, city: 'Hortolândia' }, { name: 'Heloisa', age: 18, city: 'Hortolândia' }]);
 });
 
 export default routes;
