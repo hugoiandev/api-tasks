@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import * as Yup from 'yup';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 import { SessionInterface } from '../types/modelTypes';
@@ -17,7 +17,9 @@ class SessionController {
     const dataValid = schema.isValid(data);
 
     if (!dataValid) {
-      return res.status(400).json({ message: 'Preencha os dados corretamente!' });
+      return res
+        .status(400)
+        .json({ message: 'Preencha os dados corretamente!' });
     }
 
     const user = await User.findOne({ email: data.email });
@@ -26,13 +28,20 @@ class SessionController {
       return res.status(400).json({ message: 'Usuário não cadastrado!' });
     }
 
-    const passwordIsValid = await bcrypt.compare(data.password, user.passwordHash);
+    const passwordIsValid = await bcryptjs.compare(
+      data.password,
+      user.passwordHash,
+    );
 
     if (!passwordIsValid) {
       return res.status(400).json({ message: 'Senha incorreta!' });
     }
 
-    const token = jwt.sign({ name: user.firstName, email: user.email }, process.env.SECRET_KEY_JWT as string, { expiresIn: '2 days' });
+    const token = jwt.sign(
+      { name: user.firstName, email: user.email },
+      process.env.SECRET_KEY_JWT as string,
+      { expiresIn: '2 days' },
+    );
 
     return res.status(200).json({ token });
   }

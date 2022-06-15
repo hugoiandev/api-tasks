@@ -1,5 +1,5 @@
 import express, { Express } from 'express';
-
+import 'dotenv';
 import mongoose from 'mongoose';
 import routes from './routes';
 
@@ -9,7 +9,7 @@ class App {
   constructor() {
     this.server = express();
 
-    mongoose.connect(process.env.URL_CONNECT! as string);
+    mongoose.connect(process.env.BD_URL as string);
 
     this.middlewares();
     this.routes();
