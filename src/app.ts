@@ -1,5 +1,4 @@
 import express, { Express } from 'express';
-import 'dotenv';
 import mongoose from 'mongoose';
 import routes from './routes';
 
