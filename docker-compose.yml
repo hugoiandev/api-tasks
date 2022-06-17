@@ -6,6 +6,7 @@ services:
     command: "yarn dev"
     environment:
       - BD_URL=mongodb+srv://hugofront:VyblnjmDhjQghyDQ@cluster0.kfscp.mongodb.net/?retryWrites=true&w=majority
+      - SECRET_KEY_JWT=727981c92d90015129abb9321c5c4268
     ports:
       - "8080:3333"
     volumes:

@@ -38,7 +38,7 @@ class SessionController {
     }
 
     const token = jwt.sign(
-      { name: user.firstName, email: user.email },
+      { name: user.firstName, email: user.email, id: user.id },
       process.env.SECRET_KEY_JWT as string,
       { expiresIn: '2 days' },
     );

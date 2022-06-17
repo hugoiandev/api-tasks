@@ -14,6 +14,7 @@ const UserSchema = new Schema<UserInterface>(
 
 UserSchema.virtual('password');
 
+// eslint-disable-next-line func-names
 UserSchema.pre('save', async function (done) {
   const hash = await bcryptjs.hash(this.password, 8);
   this.passwordHash = hash;
