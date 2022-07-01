@@ -10,12 +10,9 @@ export interface SessionInterface {
   password: string;
 }
 
-export interface MatchInterface {
+export interface TaskInterface {
   name: string;
-  locale: string;
-  date: string;
-  value: number;
-  receiver: string;
-  players: string[];
+  description: string;
+  finished: boolean;
   userId: any;
 }
