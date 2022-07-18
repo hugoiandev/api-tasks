@@ -6,20 +6,22 @@ import autenticate from './middlewares/autentication';
 
 const routes = Router();
 
-routes.post('/register', userController.store);
+routes.post('/register', userController.register);
 
-routes.post('/session', sessionController.store);
+routes.post('/session', sessionController.getToken);
+
+routes.post('/session/validate', sessionController.validateToken);
 
 routes.use(autenticate.store);
 
-routes.get('/task', taskController.index);
+routes.get('/task', taskController.getTasks);
 
-routes.post('/task', taskController.store);
+routes.post('/task', taskController.createTask);
 
-routes.put('/task/:taskId', taskController.update);
+routes.put('/task/:taskId', taskController.updateTask);
 
-routes.patch('/task/:taskId', taskController.patch);
+routes.patch('/task/:taskId', taskController.updateStatusTask);
 
-routes.delete('/task/:taskId', taskController.destroy);
+routes.delete('/task/:taskId', taskController.deleteTask);
 
 export default routes;

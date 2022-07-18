@@ -16,7 +16,7 @@ const schemaUpdate = Yup.object().shape({
 });
 
 class TaskController {
-  async store(req: Request, res: Response) {
+  async createTask(req: Request, res: Response) {
     const token = req.headers.authorization?.replace('Bearer ', '');
     const task: TaskInterface = req.body;
 
@@ -34,10 +34,10 @@ class TaskController {
 
     await Task.create(taskInfo);
 
-    return res.status(201).json({ message: 'Partida criada com sucesso!' });
+    return res.status(201).json({ message: 'Tarefa criada com sucesso!' });
   }
 
-  async index(req: Request, res: Response) {
+  async getTasks(req: Request, res: Response) {
     const token = req.headers.authorization?.replace('Bearer ', '');
     const { id } = jwt.decode(token as string) as { id: string };
 
@@ -48,7 +48,7 @@ class TaskController {
     return res.status(200).json(tasks);
   }
 
-  async update(req: Request, res: Response) {
+  async updateTask(req: Request, res: Response) {
     const token = req.headers.authorization?.replace('Bearer ', '');
     const { taskId } = req.params;
     const { id } = jwt.decode(token as string) as { id: string };
@@ -73,7 +73,7 @@ class TaskController {
     return res.status(200).json({ message: 'Tarefa atualizada' });
   }
 
-  async patch(req: Request, res: Response) {
+  async updateStatusTask(req: Request, res: Response) {
     const token = req.headers.authorization?.replace('Bearer ', '');
     const { taskId } = req.params;
     const { finished } = req.query;
@@ -100,7 +100,7 @@ class TaskController {
     return res.status(200).json({ message: 'Tarefa altereda!' });
   }
 
-  async destroy(req: Request, res: Response) {
+  async deleteTask(req: Request, res: Response) {
     const token = req.headers.authorization?.replace('Bearer ', '');
     const { taskId } = req.params;
     const { id } = jwt.decode(token as string) as { id: string };

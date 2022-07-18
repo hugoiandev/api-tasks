@@ -11,7 +11,7 @@ const schema = Yup.object().shape({
 });
 
 class UserController {
-  async store(req: Request, res: Response) {
+  async register(req: Request, res: Response) {
     const user: UserInterface = req.body;
 
     const validate = await schema.isValid(user);

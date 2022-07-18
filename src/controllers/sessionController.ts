@@ -11,7 +11,7 @@ const schema = Yup.object({
 });
 
 class SessionController {
-  async store(req: Request, res: Response) {
+  async getToken(req: Request, res: Response) {
     const data: SessionInterface = req.body;
 
     const dataValid = schema.isValid(data);
@@ -44,6 +44,31 @@ class SessionController {
     );
 
     return res.status(200).json({ token });
+  }
+
+  validateToken(req: Request, res: Response) {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+
+    if (!token) {
+      return res.status(401).json({ auth: false });
+    }
+
+    try {
+      const tokenIsValid = jwt.verify(
+        token,
+        process.env.SECRET_KEY_JWT as string,
+      );
+
+      if (!tokenIsValid) {
+        return res.status(401).json({ auth: false });
+      }
+    } catch (err) {
+      return res
+        .status(500)
+        .json({ auth: false, message: 'Ocorreu um erro ao verificar token!' });
+    }
+
+    return res.status(200).json({ auth: true });
   }
 }
 
