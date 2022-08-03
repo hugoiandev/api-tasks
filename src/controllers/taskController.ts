@@ -76,7 +76,6 @@ class TaskController {
   async updateStatusTask(req: Request, res: Response) {
     const token = req.headers.authorization?.replace('Bearer ', '');
     const { taskId } = req.params;
-    const { finished } = req.query;
     const { id } = jwt.decode(token as string) as { id: string };
 
     const task = await Task.findOne({ _id: taskId });
