@@ -88,13 +88,11 @@ class TaskController {
         .status(400)
         .json({ message: 'Voce nao pode alterar essa tarefa!' });
     }
-
-    if (finished === 'true') {
-      await Task.updateOne({ _id: taskId }, { finished: true });
-    }
-
-    if (finished === 'false') {
+    
+    if (task.finished) {
       await Task.updateOne({ _id: taskId }, { finished: false });
+    } else {
+      await Task.updateOne({ _id: taskId }, { finished: true });
     }
 
     return res.status(200).json({ message: 'Tarefa altereda!' });
