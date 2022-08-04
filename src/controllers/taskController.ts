@@ -87,7 +87,7 @@ class TaskController {
         .status(400)
         .json({ message: 'Voce nao pode alterar essa tarefa!' });
     }
-    
+
     if (task.finished) {
       await Task.updateOne({ _id: taskId }, { finished: false });
     } else {

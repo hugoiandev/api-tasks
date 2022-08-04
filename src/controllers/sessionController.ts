@@ -68,7 +68,11 @@ class SessionController {
         .json({ auth: false, message: 'Ocorreu um erro ao verificar token!' });
     }
 
-    return res.status(200).json({ auth: true });
+    const user = jwt.decode(token) as { name: string; email: string };
+
+    return res
+      .status(200)
+      .json({ auth: true, info: { name: user.name, email: user.email } });
   }
 }
 
